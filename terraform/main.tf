@@ -13,6 +13,10 @@ provider "digitalocean" {
   token = var.do_token
 }
 
+data "digitalocean_ssh_key" "ssh_keys" {
+  name = var.ssh_keys
+}
+
 resource "digitalocean_droplet" "jenkins" {
   image    = "ubuntu-22-04-x64"
   name     = "jenkins"
@@ -21,9 +25,7 @@ resource "digitalocean_droplet" "jenkins" {
   ssh_keys = [data.digitalocean_ssh_key.ssh_keys.id]
 }
 
-data "digitalocean_ssh_key" "ssh_keys" {
-  name = var.ssh_keys
-}
+
 
 resource "digitalocean_kubernetes_cluster" "k8s" {
   name   = "k8s"
@@ -51,11 +53,11 @@ variable "ssh_keys" {
 }
 
 output "jenkins_ip" {
-    value = digitalocean_droplet.jenkins.ipv4_address
+  value = digitalocean_droplet.jenkins.ipv4_address
 }
 
-resource "local_file" "foo" {
-    content = digitalocean_kubernetes_cluster.k8s.kube_config.0.raw_config
-    filename = "kube_config.yaml"
+resource "local_file" "kube_config" {
+  content  = digitalocean_kubernetes_cluster.k8s.kube_config.0.raw_config
+  filename = "kube_config.yaml"
 
 }

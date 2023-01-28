@@ -1,3 +1,3 @@
-do_token = "dop_v1_95ca9b6f2eb9b52343f8489253e30204285b0e157da81e02700685f0bc64354a"
+do_token = "dop_v1_e04487301ddb1b3355b6bab0708555e64d8caa4348db3b3dfa68b01333091516"
 ssh_keys = "jornada"
-region   = "nyc1"
+region   = "nyc3"
